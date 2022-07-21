@@ -1,0 +1,13 @@
+		Java Source code
+		    확장자  >> .java
+		       ▼
+		    Complie
+		       ▼
+		java Application
+		      확장자 >> .class
+		       ▼
+		      run // 이때 부터는 내부에서 알아서 한다.
+		       ▼
+	  Java virtual Machine
+		       ▼
+		    Computer
