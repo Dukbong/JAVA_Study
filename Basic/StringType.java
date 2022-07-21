@@ -1,4 +1,4 @@
-public class StringType{
+public class StringType {
 	public static void main(String[] args){
     	System.out.println("Hello World"); // type : string
         System.out.println('H'); // type : char
@@ -10,7 +10,7 @@ public class StringType{
         // 줄바꿈으로 만들기
         System.out.println("Hello \n World"); // \n에서 줄바꿈이 된다.
         /*
-        결과
+       	결과
         Hello
         World
         */

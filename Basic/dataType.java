@@ -2,7 +2,7 @@ public class dataType{
 	public static void main (String[] args) {
 		// data type = 숫자, 글자 등등등...
 		System.out.println(6); // Number
-		// 이거 쉽게 치는 방법 sout ctrl+space
+		// System.out.println 쉽게 만드는 방법 : sout ctrl+space
 		System.out.println("six"); // String
 		System.out.println("6"); // String
 		
