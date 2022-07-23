@@ -39,6 +39,11 @@ public class dataType{
         
         boolean e = true; // true, false를 나타내는 논리형 타입
         // ⭐ 1 byte
+        
+        int f = 0B0101; // 2진수 나타내는 방법 (숫자 0 영어 B 뒤에 2진수 적기)
+        int g = 0101; // 8진수 나타내는 방법 (숫자 0으로 시작하면 8진수)
+        int h = 0XA; // 16진수 나타내는 방법 (숫자 0X로 시작하면 16진수)
+        
 
 	}
 }
