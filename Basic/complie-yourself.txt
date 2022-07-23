@@ -1,0 +1,21 @@
+이클립스 같은거 없이 스스로 자바 프로그램을 컴파일하고 실행할 수 있다.
+
+1. cmd 창을 연다.
+
+2. 컴파일의 경우 javac 라는 명령어로 한다.
+	- 환경변수를 설정했다면 그냥 cmd창에 javac라고 치면 명령어가 쭉 나온다.
+	- 만약 환경병수를 설정하지 않았을때 하는 방법
+		- program Files > Java > jdk(버전) > bin으로 들어온 다음 javac 명령어를 해야한다.
+
+3. 컴파일 하고자 하는 java파일이 있는 곳으로 이동한다.
+	- ex) C:\Users\USER\Desktop\JAVA\SelfComplie
+	- self complie을 하기 위해서는 class 파일이 없어야한다.
+
+4. javac 파일명.java 를 하게 되면 컴파일되서 class파일이 생성된다.
+	- 만약 오류가 발생한다면 javac -cp "파일이 있는 위치" 파일명.java
+		- javac -cp "." 파일명.java >> 현재 위치에 파일이 있다.
+		- javac -cp ".;lib" 파일명.java >> 현재 위치에 있는 lib폴더 안에 파일이 있다.
+	
+5. class 파일 실행하는 방법
+	- java 파일명 (확장자는 적지 않는다.)
+	- 오류가 발생한다면 java -cp "파일이 있는 위치" 파일명
