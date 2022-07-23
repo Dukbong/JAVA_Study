@@ -24,8 +24,8 @@ public class Ok_JAVA_Input {
 		// 5. Arguments 클릭 후 필요한 값 입력하면 끝입니다.
 		
 		// 입력시 주의 사항
-		// Arguments 작성 예시) 'Busan 104' '15.6'
-		//					 >> ['Busan 104', '15.6']
+		// Arguments 작성 예시) "Busan 104" "15.6"
+		//					 >> ["Busan 104", "15.6"]
 		
 		System.out.println("나와랏" + id);
 		
