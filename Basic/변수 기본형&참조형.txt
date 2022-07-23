@@ -1,0 +1,17 @@
+변수의 기본형 & 참조형
+
+기본형 8개
+	- boolean (논리형)
+	- char (문자형)
+	- byte, short, int, long (정수형)
+	- float, double (실수형)
+	
+	- 기본형 특징 : 실제 값을 저장한다.
+
+참조형
+	- String
+	- System
+	- Date
+	- 등등 무제한이다.
+	
+	- 참조형 특징 : 메모리 주소를 저장한다.
