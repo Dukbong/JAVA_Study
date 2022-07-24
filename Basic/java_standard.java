@@ -58,6 +58,7 @@ public class java_standard {
 		
 		// 문자열의 비교
 		// 문자열 비교에서는 == 보다는 equals()을 사용하는게 좋다.
+		// 만약 대소문자가 상관없다면 equalsIgnoreCase()을 사용하면 된다.
 		String aa = "abc";
 		String bb = "abc";
 		System.out.println(aa == bb); // true
