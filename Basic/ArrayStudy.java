@@ -246,6 +246,55 @@ public class ArrayStudy {
 			}
 			
 		}
+		
+		// String 클래스
+		// String 클래스는 내용을 변경할 수 없다.(read only)
+		
+		String a = "a"; // 예: 주소 0x100
+		String b = "b"; // 예: 주소 0x200
+		a = a + b; // "ab"
+		// 주소 0x100에 "ab"가 저장되는게 아니라 새로운 주소 0x300에 저장되고 a도 0x300으로 주소값이 변경된다.
+		
+		// String 클래스의 주요 메서드
+		String str1 = "ABCDEF";
+		char ch = str1.charAt(3); // D
+		int le = str1.length(); // 6
+		String sub = str1.substring(1,4); // BCD
+		String sub2 = str1.substring(1); // BCDEF
+		
+		// Arrays로 배열 다루기
+		// 배열의 비교와 출력에는 equals(), toString();
+		
+		int[] arr1D = {1,2,3,4,5};
+		System.out.println(Arrays.toString(arr1D)); // [1,2,3,4,5]
+		
+		int[][] arr2D = {{1,2},{3,4}};
+		System.out.println(Arrays.deepToString(arr2D)); // [[1,2],[3,4]]
+		// 다차원 배열에서는 deepToString()을 사용하면 된다.
+		
+		String[][] str2D = {{"aa","bb"},{"AA","BB"}};
+		String[][] str2D2 = {{"aa", "bb"},{"AA", "BB"}};
+		
+		System.out.println(Arrays.equals(str2D, str2D2)); // false
+		// 다차원 배열에서는 비교할때도 deepEquals()을 사용해야한다.
+		System.out.println(Arrays.deepEquals(str2D, str2D2)); // true
+		
+		// Arrays로 배열 다루기
+		// 배열의 복사 copyOf(), copyOfRange()
+		int[] arrr = {0,1,2,3,4};
+		int[] arrr2 = Arrays.copyOf(arrr, arrr.length); // arrr2 = [0,1,2,3,4]
+		int[] arrr3 = Arrays.copyOf(arrr, 3); // arrr3 = [0,1,2]
+		int[] arrr4 = Arrays.copyOf(arrr, 7); // arrr4 = [0,1,2,3,4,0,0];
+		// 원본보다 긴 길이를 복제할때는 해당 없는 인덱스의 값은 0으로 초기화된다.
+		int[] arrr5 = Arrays.copyOfRange(arrr, 2, 4); // arrr5 = [2,3] 
+		int[] arrr6 = Arrays.copyOfRange(arrr, 0, 7); // arrr6 = [0,1,2,3,4,0,0];	
+		
+		// sort ( 배열의 정렬 )
+		
+		int[] arr = {3,2,0,1,4};
+		Arrays.sort(arr); // 배열 arr을 정렬한다. 
+		System.out.println(Arrays.toString(arr)); // [0,1,2,3,4]
+		
 	}
 
 }
