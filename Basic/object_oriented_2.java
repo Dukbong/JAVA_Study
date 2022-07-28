@@ -458,7 +458,7 @@ final class FinalTest{ // 부모 클래스가 될 수 없다. (즉, 상속해 줄 수 없다.)
 	}
 }
 
-abstract class AbstractTest{ // (추상 클래스)클래스 내부에 추상 메서드가 선언 되어 있음을 의미한다.
+abstract class AbstractTest1{ // (추상 클래스)클래스 내부에 추상 메서드가 선언 되어 있음을 의미한다.
 	abstract void move(); // (추상 메서드)선언부만 작성하고 구현부 장성하지 않은 추상 메서드임을 의미한다.
 }
 // abstract가 있으면 미완성 된 클래스이기 때문에 인스턴스 생성이 불가능하다.
