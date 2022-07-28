@@ -163,6 +163,64 @@ public class object_oriented_2 {
 			Object obj = (Object) fee; // ok
 			
 		//========================================================
+			
+			// 매개변수의 다향성은 다형성의 장점 중 하나이다.
+			// 참조형 매개변수는 매서드 호출시 자신과 같은 타입 또는 자식 타입의 인스턴스를 넘겨줄 수 있다.
+
+			Buyer user = new Buyer();
+			
+			// 매개변수 넣는 방법
+			user.buy(new computer());
+			// buy 매서드는 product 타입의 참조변수를 받고 있다.
+			// product는 computer 클래스의 부모다.
+			// product 타입이지만 computer 객체를 가르키는 다형성이 성립된다.
+			
+			product ph = new phone();
+			// 처음부터 다형성으로 참조변수 p1을 만든다.
+			// 그 이후 buy 매서드 매개변수로 넣는다.
+			user.buy(ph);
+			
+			user.buy(new Mouse());
+			
+			System.out.println("현재 남은 돈은 " + user.money + "만원입니다.");
+			System.out.println("현재 보너스점수는 " + user.bonusPoint + "점입니다.");
+			
+		//========================================================
+			
+			// 여러 종류의 객체를 배열로 다루기 다형성의 장정 중 하나이다.
+			product2 p1 = new computer2();
+			product2 p2 = new phone2();
+			product2 p3 = new Mouse2();
+			
+			product2 ArryP[] = new product2[3];
+			ArryP[0] = p1;
+			ArryP[1] = p2;
+			ArryP[2] = p3;
+			
+			// 위 아래 모두 같은 결과를 나타내지만 아래가 더 빨리 작성이 가능하다.
+			
+			product ArryP2[] = new product[3];
+			ArryP2[0] = new computer();
+			ArryP2[0] = new phone();
+			ArryP2[0] = new Mouse();
+			
+			Buyer2 user2 = new Buyer2();
+			user2.buy(new computer2());
+			user2.buy(new phone2());
+			user2.buy(new phone2());
+			user2.buy(new Mouse2());
+			
+			user2.summary();
+			
+		//========================================================
+			
+			Audioplayer ap = new Audioplayer();
+			Player PP = new Audioplayer(); // 다형성
+			ap.play(100);
+			ap.stop();
+			
+		//========================================================
+
 	}
 
 }
@@ -469,6 +527,172 @@ class FireEngine extends car{
 }
 
 //================================================================
+
+class product{
+	int price;
+	int bonusPoint;
+	
+	product(int price){
+		this.price = price;
+		bonusPoint = (int)(price/10.0);
+	}
+}
+
+class computer extends product{
+	computer(){
+		super(100);
+	}
+	public String toString() { // Object 클래스의 toString 매소드 오버라이딩
+		return "computer";
+	}
+}
+class phone extends product{
+	phone(){
+		super(50);
+	}
+	public String toString() {
+		return "Phone";
+	}
+	
+}
+class Mouse extends product{
+	Mouse(){
+		super(75);
+	}
+	public String toString() {
+		return "Mouse";
+	}
+}
+
+class Buyer{
+	int money = 1000;
+	int bonusPoint = 0;
+	
+	// 다형성을 사용하지 않았을 경우 ( 오버로딩을 통해 제품 당 하나씩 매서드를 만들어줘야한다.)
+//	void buy (computer c) { // 컴퓨터 살때
+//		money = money - c.price;
+//		bonusPoint = bonusPoint + c.bonusPoint;
+//	}
+//	void buy (phone ph) { // 핸드폰 살때
+//		money = money - ph.price;
+//		bonusPoint = bonusPoint + ph.bonusPoint;
+//	}
+//	void buy (Mouse m) { // 마우스 살때
+//		money = money - m.price;
+//		bonusPoint = bonusPoint + m.bonusPoint;
+//	}
+	
+	// 다형성을 사용했을때 ( 다형성을 사용해서 매개변수 조상타입으로 한번에 해결할 수 있다. )
+	void buy (product p) {
+		if (money < p.price) {
+			System.out.println("잔액이 부족하여 물건을 살 수 없습니다.");
+			return;
+		}
+		money = money - p.price;
+		bonusPoint = bonusPoint + p.bonusPoint;
+		System.out.println(p.toString() + "을/를 구매하셨습니다.");
+	}
+}
+
 //================================================================
+
+class product2{
+	int price;
+	int bonusPoint;
+	
+	product2(int price){
+		this.price = price;
+		bonusPoint = (int)(price/10.0);
+	}
+}
+
+class computer2 extends product2{
+	computer2(){
+		super(100);
+	}
+	public String toString() { // Object 클래스의 toString 매소드 오버라이딩
+		return "computer";
+	}
+}
+class phone2 extends product2{
+	phone2(){
+		super(50);
+	}
+	public String toString() {
+		return "Phone";
+	}
+	
+}
+class Mouse2 extends product2{
+	Mouse2(){
+		super(75);
+	}
+	public String toString() {
+		return "Mouse";
+	}
+}
+
+class Buyer2{
+	int money = 1000;
+	int bonusPoint = 0;
+	product2[] cart = new product2[10]; // 구입한 제품을 저장시키기 위한 배열
+	int i = 0; // cart의 인덱스 번호를 나타낼 숫자
+	
+	void buy (product2 p) {
+		if (money < p.price) {
+			System.out.println("잔액이 부족하여 물건을 살 수 없습니다.");
+			return;
+		}
+		money = money - p.price;
+		bonusPoint = bonusPoint + p.bonusPoint;
+		System.out.println(p.toString() + "을/를 구매하셨습니다.");
+		cart[i++] = p;
+	}
+	
+	void summary() {
+		int sum = 0;
+		String itemList = "";
+		
+		for (int i = 0; i < cart.length; i++) {
+			if(cart[i] == null) {
+				break;
+			}
+			sum = sum + cart[i].price;
+			itemList = itemList + cart[i].toString() + ", ";
+		}
+		System.out.println("구입하신 물품의 총 금액은 " + sum + "만원입니다.");
+		System.out.println("구입하신 제품은 " + itemList + "입니다.");
+	}
+}
+
 //================================================================
+
+abstract class Player{
+	boolean pause;
+	int currentPos;
+	
+	Player(){ // 추상 클래스도 생성자가 있어야 한다.
+		pause = false;
+		currentPos = 0;
+	}
+	
+	abstract void play(int pos); // 추상 매서드
+	abstract void stop(); // 추상 매서드
+	
+	void play() {
+		play(currentPos); // 추상 매서드를 사용할 수 있다.
+		// 매서드는 선언부만 알면 호출이 가능하다는 사실~ 두둥탁	
+	}
+}
+
+// 추상클래스를 상속받을때 모든 추상 매서드의 구현부를 만들어 주지 않으면 아직은 추상클래스이다.
+class Audioplayer extends Player{
+	void play(int pos) {
+		System.out.println(pos + "위치부터 play 합니다.");
+	}
+	void stop() {
+		System.out.println("재생을 멈춥니다.");
+	}
+}
+
 //================================================================
