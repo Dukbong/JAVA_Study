@@ -52,7 +52,7 @@ interface T2 extends T{
 	void attack(T2 x);
 }
 
-class interfaceTest implements T2{ // 구현
+class interfaceTest1 implements T2{ // 구현
 	public void move(int x) {
 		System.out.println("움직여!");
 	}
