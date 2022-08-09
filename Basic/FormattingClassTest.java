@@ -1,3 +1,4 @@
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -5,8 +6,92 @@ import java.util.Date;
 public class FormattingClassTest {
 
 	public static void main(String[] args) {
-		SimpleDateFormatTest3 s = new SimpleDateFormatTest3();
-		s.get();
+		// DecimalFormat 예제 1
+		double number = 1234567.89;
+		String[] pattern = {
+				"0",
+				"#",
+				"0.0",
+				"#.#",
+				"0000000000.0000",
+				"##########.####",
+				"#.#-",
+				"-#.#",
+				"#,###.##",
+				"#,####.##",
+				"#E0",
+				"0E0",
+				"##E0",
+				"00E0",
+				"####E0",
+				"#.#E0",
+				"0.0E0",
+				"0.0000000000E0",
+				"00.000000000E0",
+				"000.00000000E0",
+				"#.##########E0",
+				"##.#########E0",
+				"#,###.##+;#,###.##-",
+				"#.#%",
+				"#.#\u2030",
+				"\u00A4 #,###",
+				"'#'#,###",
+				"''#,###",
+		};
+		for (int i = 0; i < pattern.length; i++) {
+			DecimalFormat df = new DecimalFormat(pattern[i]);
+			System.out.printf("%19s : %s\n",pattern[i], df.format(number));
+		}
+		
+		// DecimalFormat 예제 2
+		DecimalFormat df1 = new DecimalFormat("#,###.##");
+		DecimalFormat df2 = new DecimalFormat("#.###E0");
+		
+		try {
+			java.lang.Number num = df1.parse("1,234,567.89");
+			System.out.print("1,234,567.89" + " ->");
+			double d = num.doubleValue(); // d = 1234567.89
+			System.out.print(d + " -> ");
+			System.out.println(df2.format(num));
+		}catch(Exception e) {}
+		
+		System.out.println("===================================");
+		
+		// SimpleDateFormat 예제 1
+		Date today = new Date(); // 현재 시간과 날짜 
+		SimpleDateFormat sdf1, sdf2, sdf3, sdf4;
+		SimpleDateFormat sdf5, sdf6, sdf7, sdf8, sdf9;
+		sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		sdf2 = new SimpleDateFormat("''yy년 MMM dd일 E요일");
+		sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		sdf4 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
+		
+		sdf5 = new SimpleDateFormat("오늘은 올해의 D번재 날입니다.");
+		sdf6 = new SimpleDateFormat("오늘은 이달의 d번째 날입니다.");
+		sdf7 = new SimpleDateFormat("오늘은 올해의 w번째 주입니다.");
+		sdf8 = new SimpleDateFormat("오늘은 이달의 W번째 주입니다.");
+		sdf9 = new SimpleDateFormat("오늘은 이달의 F번쨰 E요일입니다.");
+		
+		System.out.println(sdf1.format(today));
+		System.out.println(sdf2.format(today));
+		System.out.println(sdf3.format(today));
+		System.out.println(sdf4.format(today));
+		System.out.println(sdf5.format(today));
+		System.out.println(sdf6.format(today));
+		System.out.println(sdf7.format(today));
+		System.out.println(sdf8.format(today));
+		System.out.println(sdf9.format(today));
+		
+		// SimpleDateFormat 예제 2
+		DateFormat df3 = new SimpleDateFormat("yyyy년 MM월 dd일");
+		DateFormat df4 = new SimpleDateFormat("yyyy/MM/dd");
+		
+		try {
+			Date d = df3.parse("2019년 11월 23일");
+			System.out.println(df4.format(d));
+		}catch(Exception e) {}
+		
+		
 	}
 
 }
@@ -36,60 +121,6 @@ class DecimalFormatTest1{
 //	}
 //}
 
-// 예제 (pattern test)
-class DecimalFormatTest3{
-	double number = 1234567.89;
-	String[] pattern = {
-			"0",
-			"#",
-			"0.0",
-			"#.#",
-			"0000000000.0000",
-			"##########.####",
-			"#.#-",
-			"-#.#",
-			"#,###.##",
-			"#,####.##",
-			"#E0",
-			"0E0",
-			"##E0",
-			"00E0",
-			"####E0",
-			"#.#E0",
-			"0.0E0",
-			"0.0000000000E0",
-			"00.000000000E0",
-			"000.00000000E0",
-			"#.##########E0",
-			"##.#########E0",
-			"#,###.##+;#,###.##-",
-			"#.#%",
-			"#.#\u2030",
-			"\u00A4 #,###",
-			"'#'#,###",
-			"''#,###",
-	};
-	void get() {
-		for (int i = 0; i < pattern.length; i++) {
-			DecimalFormat df = new DecimalFormat(pattern[i]);
-			System.out.printf("%19s : %s\n",pattern[i], df.format(number));
-		}
-	}
-}
-
-// 예제 2
-//class DecimalFormatTest4{
-//	DecimalFormat df1 = new DecimalFormat("#,###.##");
-//	DecimalFormat df2 = new DecimalFormat("#.###E0");
-//	
-//	try {
-//		Number num = df1.parse("1,234,567.89");
-//		System.out.print("1,234,567.89" + " ->");
-//		double d = num.doubleValue(); // d = 1234567.89
-//		System.out.print(d + " -> ");
-//		System.out.println(df2.format(num));
-//	}catch(Exception e) {}
-//}
 
 // SimpleDateFormat
 // - 날짜와 시간을 다양한 형식으로 출혁 할 수 있게 해준다.
@@ -110,9 +141,9 @@ class SimpleDateFormatTest1{
 
 // - 특정 형식으로 되어 있는 문자열에서 날짜와 시간을 뽑아 낼수 도 있다.
 //class SimpleDateFormatTest2{
-//	SimpleDateFormat df1 = new SimpleDateFormat("yyyy년 MM월 dd일");
-//	SimpleDateFormat df2 = new SimpleDateFormat("yyyy/MM/dd");
-//	Date d = df1.parse("2015년 11월 23일"); // 문자열을 Date로 변환
+//	DateFormat df1 = new SimpleDateFormat("yyyy년 MM월 dd일");
+//	DateFormat df2 = new SimpleDateFormat("yyyy/MM/dd");
+//	Date d = df1.parse("2019년 11월 23일"); // 문자열을 Date로 변환
 //	String result = df2.format(d);
 //}
 // a = 오전/오후(AM/PM)
@@ -127,33 +158,3 @@ class SimpleDateFormatTest1{
 // Z = Time zone(RFC 822 time zone)
 // ` = escape 문자(특수 문자를 표현하는 데 사용)
 
-// 예제 1
-class SimpleDateFormatTest3{
-	Date today = new Date();
-	SimpleDateFormat sdf1, sdf2, sdf3, sdf4;
-	SimpleDateFormat sdf5, sdf6, sdf7, sdf8, sdf9;
-	
-	void get() {
-		sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-		sdf2 = new SimpleDateFormat("''yy년 MMM dd일 E요일");
-		sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-		sdf4 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
-		
-		sdf5 = new SimpleDateFormat("오늘은 올해의 D번재 날입니다.");
-		sdf6 = new SimpleDateFormat("오늘은 이달의 d번째 날입니다.");
-		sdf7 = new SimpleDateFormat("오늘은 올해의 w번째 주입니다.");
-		sdf8 = new SimpleDateFormat("오늘은 이달의 W번째 주입니다.");
-		sdf9 = new SimpleDateFormat("오늘은 이달의 F번쨰 E요일입니다.");
-		
-		System.out.println(sdf1.format(today));
-		System.out.println(sdf2.format(today));
-		System.out.println(sdf3.format(today));
-		System.out.println(sdf4.format(today));
-		System.out.println(sdf5.format(today));
-		System.out.println(sdf6.format(today));
-		System.out.println(sdf7.format(today));
-		System.out.println(sdf8.format(today));
-		System.out.println(sdf9.format(today));
-	}
-	
-}
