@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
@@ -58,14 +60,14 @@ public class MapTest {
 		 set = map2.keySet();
 		 System.out.println("참가자 명단 : " + set);
 		 
-		 Collection values = map.values();
+		 Collection values = map2.values();
 		 it = values.iterator();
 		 
 		 int total = 0;
 		 
 		 while (it.hasNext()) {
-			 Integer i = (Integer)it.next();
-			 total = total + i.intValue();
+			 int i = (int)it.next();
+			 total = total + i;
 		 }
 		 
 		 System.out.println("총점수 : " + total);
@@ -77,13 +79,15 @@ public class MapTest {
 		 String [] data = {"A","K","A","W","D","A","K","K","K","Z","D"};
 		 HashMap map3 = new HashMap();
 		 for (int i = 0; i < data.length; i++) {
-			 if(map.containsKey(data[i])) {
-				 int value = (int)map.get(data[i]);
-				 map.put(data[i], value+1);
+			 if(map3.containsKey(data[i])) {
+				 int value2 = (int)map3.get(data[i]);
+				 map3.put(data[i], value2+1);
 			 }else {
-				 map.put(data[i],  1);
+				 map3.put(data[i],  1);
 			 }
-			 Iterator it2 = map.entrySet().iterator();
+
+			 Iterator it2 = map3.entrySet().iterator();
+			 
 			 
 			 while(it2.hasNext()) {
 				 Map.Entry entry = (Map.Entry)it2.next();
@@ -91,6 +95,13 @@ public class MapTest {
 				 System.out.println(entry.getKey() + ":" + printBar('#',value2) + " " + value2);
 			 }
 		 }
+	}
+	static String printBar(char c, int a) {
+		char[] bar = new char[a];
+		for (int i = 0; i < a; i++) {
+			bar[i] = c;
+		}
+		return new String(bar);
 	}
 
 }
