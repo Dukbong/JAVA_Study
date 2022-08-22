@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class GenericsTest {
 
@@ -30,7 +32,7 @@ public class GenericsTest {
 		// 예제 3
 		ArrayList list3 = new ArrayList();
 		list3.add(new Tvv()); // ok
-		list3.add(new Audio()); // ok
+		list3.add(new Audioo()); // ok
 		
 		Tvv t = (Tvv)list3.get(0);
 		
@@ -41,13 +43,13 @@ public class GenericsTest {
 		Tvv t2 = list4.get(0);
 		
 		// 예제 4
-		ArrayList<Product> productList = new ArrayList<Product>();
+		ArrayList<Producttt> productList = new ArrayList<Producttt>();
 		ArrayList<Tvv> TvvList = new ArrayList<Tvv>();
 		// ArrayList<Product> tvList = new ArrayList<Tv>(); // Error
 		// List<Tv> TvList = new List<Tv>(); // ok 다형성
 		
 		productList.add(new Tvv()); // public boolean add(Product e) // Product와 그의 자식 객체는 ok
-		productList.add(new Audio());
+		productList.add(new Audioo());
 		
 		TvvList.add(new Tvv()); // public boolean add(Tvv e)
 		TvvList.add(new Tvv());
@@ -55,10 +57,35 @@ public class GenericsTest {
 		printAll(productList);
 		//printAll(TvvList); // Error!
 		// ArrayList<Product> list = new ArrayList<Tvv>(); // 타입변수 불일치 에러
+		
+		// 예제 5
+		ArrayList<Student> list5 = new ArrayList<Student>();
+		list5.add(new Student("JAVA", 1, 1));
+		list5.add(new Student("JS", 1, 2));
+		list5.add(new Student("PYTHON", 2, 1));
+		
+		Iterator<Student> it = list5.iterator();
+		
+		while(it.hasNext()) {
+			// Student s = (Student)it.next(); >> 지네릭스 사용하지 않으면 형변환 필요
+			Student s = it.next();
+			System.out.println(s.name);
+			// System.out.println(it.next().name); 위에 두줄을 한줄로 변경
+		}
+		
+		// 예제 6
+		HashMap<String, Student2> map = new HashMap<String, Student2>();
+		// HashMap<String, Student2> map = new HashMap<>(); 
+		// 어짜피 new 생성자에도 똑같이 적어줘야하기 떄문에 생략이 가능하다. JDK 1.7 이후
+		
+		map.put("jang", new Student2("java",1,1,80,50,70));
+		
+		Student2 s = map.get("java");
+		// Student2 s = (Student2)map.get("java"); // 생성시 지네릭 타입을 지정해주지 않았을 경우 
 	}
 	
-	public static void printAll(ArrayList<Product> list) {
-		for (Product p : list) {
+	public static void printAll(ArrayList<Producttt> list) {
+		for (Producttt p : list) {
 			System.out.println(p);
 		}
 		// 위 와 같은 코드이다.
@@ -68,10 +95,39 @@ public class GenericsTest {
 	}
 
 }
-class Product{}
-class Tvv extends Product{}
-class Audio extends Product{}
+class Producttt{}
+class Tvv extends Producttt{}
+class Audioo extends Producttt{}
 
+class Student{
+	String name = "";
+	int ban;
+	int no;
+	
+	Student(String name, int ban, int no){
+		this.name = name;
+		this.ban = ban;
+		this.no = no;
+	}
+}
+
+class Student2{
+	String name = "";
+	int ban;
+	int no;
+	int kor;
+	int eng;
+	int math;
+	
+	Student2(String name, int ban, int no, int kor, int eng, int math){
+		this.name = name;
+		this.ban = ban;
+		this.no = no;
+		this.kor = kor;
+		this.eng = eng;
+		this.math = math;
+	}
+}
 /*
 지네릭스 (Generics)란?
   - 컴파일시 타입을 체크해 주는 기능  (JDK 1.5 이후 만들어짐)
@@ -131,5 +187,23 @@ class Audio extends Product{}
     - list.add(new Product());
     - list.add(new Tv()); // ok
     - list.add(new Audio()); // ok
+    
+Iterator<E>
+  - 클래스를 작성할때 Object타입 대신 T같은 타입변수 사용
+    public interface Iterator<E>{
+        boolean hasNext();
+        E next();
+        void remove();
+    }
      
+HashMap <K,V>
+  - 여러개의 타입 변수가 필요한 경우, 콤마(",")를 구분자로 선언한다.
+    HashMap<String, Student> map = new HashMap<String, Student>(); 생성
+    map.put("Java", new Student("Java",1,1,100,100,100); // 데이터저장
+    
+    public class HashMap<K,V> extends AbstractMap<K,V>{
+        public V get(Object key){내용 생략}
+        public V put(K key, V value){ 내용 생략 }
+        public V remove(Object key) { 내용 생략 }
+    }
 */
