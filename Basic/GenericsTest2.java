@@ -19,13 +19,20 @@ public class GenericsTest2 {
 		grapeBox.add(new Grape());
 		
 		// 예제 2
-		FruitBox<Fruit> fruitBox2 = new FruitBox<Fruit>();
-		FruitBox<Apple> appleOk = new FruitBox<Apple>();
+		// FruitBox2<? extends Fruit2> appleBox2 = new FruitBox2<Apple2>(); OK
+		// appleBox2 = new FruitBox2<Fruit2>(); OK
+		// appleBox2 = new FruitBox2<Grape2>(); OK
+		// appleBox2 = new FruitBox2<Apple2>(); OK
+		FruitBox2<Fruit2> fruitBox2 = new FruitBox2<Fruit2>();
+		FruitBox2<Apple2> appleBox2 = new FruitBox2<Apple2>();
 		
-		fruitBox2.add(new Apple());
-		fruitBox2.add(new Grape());
-		fruitBox2.add(new Apple());
-		fruitBox2.add(new Apple());
+		fruitBox2.add(new Apple2());
+		fruitBox2.add(new Grape2());
+		appleBox2.add(new Apple2());
+		appleBox2.add(new Apple2());
+		
+		System.out.println(Juicer.makeJuice(fruitBox2));
+		System.out.println(Juicer.makeJuice(appleBox2));
 	}
 }
 interface Eatable{}
@@ -70,6 +77,11 @@ class Box<T>{
 // 지네릭에서 인터페이스랑 타입이랑 같이 사용하려면 &을 써야한다. 
 class FruitBox<T extends Fruit & Eatable> extends Box<T>{}
 
+// ===========================예제2=================================
+class Fruit2{public String toString() {return "Fruit";}}
+class Apple2 extends Fruit2{public String toString() {return "Apple";}}
+class Grape2 extends Fruit2{public String toString() {return "Grape";}}
+
 class Juice{
 	String name;
 	
@@ -80,14 +92,25 @@ class Juice{
 }
 
 class Juicer{
-	static Juice makeJuice(FruitBox<? extends Fruit> box) {
+	static Juice makeJuice(FruitBox2<? extends Fruit2> box) {
 		String tmp = "";
-		for(Fruit f : box.getList()) {
+		for(Fruit2 f : box.getList()) {
 			tmp = tmp +f + " ";
 		}
 		return new Juice(tmp);
 	}
 }
+
+class Box2<T>{
+	ArrayList<T> list = new ArrayList<T>();
+	void add(T item) {list.add(item);}
+	T get(int i) {return list.get(i);}
+	ArrayList<T> getList(){return list;}
+	int size() {return list.size();}
+	public String toString() {return list.toString();}
+}
+
+class FruitBox2<T extends Fruit2> extends Box2<T>{}
 /*
 제한된 지네릭 클래스
   - extends로 대입할 수 있는 타입을 제한한다.
@@ -135,4 +158,30 @@ class Juicer{
         tmp = tmp + f + " ";
         return new Juice(tmp);
     }
+    
+지네릭 메서드
+  - 지네릭 타입이 선언된 메서드(타입 변수는 메서드 내에서만 유효하다.)
+    static <T> void sort(List<T> list, Comparator<? super T> c)
+  - 클래스의 타입 매개변수<T>와 메서드의 타입 매개변수 <T>는 별개다.
+    class FruitBox<T>{
+        static <T> void sort (List<T> list, Comparator<? super T> c){
+            ....
+        }
+    }
+  - 메서드를 호출할 때 마다 타입을 대입해야 한다.( 대부분 생략 가능 )
+    static <T extends Fruit> Juice makeJuice(FruitBox<T> box){
+        String tmp = "";
+        for ( Fruit f : box.getList()){
+            tmp = tmp + f + " ";
+        }
+        return new Juice(tmp);
+    }
+    
+    System.out.println(Juicer.<Fruit>makeJuice(fruitBox));
+    System.out.println(Juicer.<Apple>makeJuice(appleBox));
+    
+  - 메서드를 호출할 때 타입을 생략하지 않을 때는 클래스 이름 생략 불가
+    System.out.println(<Fruit>makeJuice(fruitBox)); // Error! 클래스 이름 생략  불가
+    System.out.println(this.<Fruit>makeJuice(fruitBox)); // OK
+    System.out.println(Juicer.makeJuice(fruitBox)); // OK
 */
