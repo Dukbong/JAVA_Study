@@ -278,3 +278,10 @@
 /Direction2$enumTest2.class
 /AnnotationTest.class
 /Tri.class
+/OverrideC.class
+/OverrideP.class
+/DeprecatedP.class
+/Testable.class
+/FunctionalInterfaceP.class
+/SuppressWarningsP.class
+/TestInfoAnno.class
