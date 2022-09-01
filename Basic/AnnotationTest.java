@@ -175,5 +175,74 @@ interface FunctionalInterfaceP{
  *         String testedBy();
  *         String[] testTools();
  *         TestType testType(); // Enum testType{First, Final}
+ *         DateTime testDate(); // 자신이 아닌 다른 애너테이션(@DateTime)을 포함할 수 있다.
+ *     }
+ *     만든 TestInfo 애너테이션 사용
+ *     @TestInfo( >> 모든 요소들에게 값을 지정해줘야한다.
+ *         count = 3, testedBy = "Kim",
+ *         testTools = {"JUnit", "AutoTester"},
+ *         testType = TestType.FIRST,
+ *         testDate = @DateTime(yymmdd = "160101", hhmmss = "235959")
+ *     )
+ *     public class NewClass{...}
+ *     
+ * 애너테이션의 요소
+ *   - 적용시 값을 지정하지 않으면 사용될 수 있는 기본값 지정 가능 (null 제외)
+ *     @interface TestInfo{
+ *         int count() default 1; >> 기본 값을 1로 지정
+ *     }
+ *     사용시
+ *     @TestInfo >> @TestInfo(int count = 1) 과 동일하다.
+ *     public class NewClass{...}
+ *
+ * - 요소가 하나이고 이름이 value라면 생략이 가능하다.
+ *   @interface TestInfo{
+ *       String value();
+ *   }
+ *   사용시
+ *   @TestInfo("passed") >> @TestInfo(value = "passed")와 동일하다.
+ *   class NewClass{...}
+ *   
+ * - 요소의 타입이 배열인 경우, 괄호 {}를 사용해야한다.
+ *  @interface TestInfo{
+ *      String[] testTools();
+ *  }
+ *  사용시
+ *  @TestInfo(testTools = {"JUnit", "AutoTester"}) >> 2개 이상일때
+ *  @TestInfo(testTools = "JUnit") >> 1개 일떄
+ *  @TestInfo(testTools = {}) >> 0개일떄도 {}는 반드시 해줘야한다.
+ *  
+ * - 모든 애너테이션의 조상
+ *   - Annotation은 모든 애너테이션의 조상이지만 상속은 불가하다.
+ *     @interface TestInfo extends Annotation{ // Error! 허용되지 않는 표현
+ *         int count();
+ *     }
+ *   - 사실 Annotation은 인터페이스이다.
+ *     package java.lang.annotation;
+ *     public interface Annotation{
+ *         boolean equals(Object obj);
+ *         int hashCode();
+ *         String toString();
+ *         
+ *         class <? extends Annotation> annotationType(); // 애너테이션의 타입을 반환
+ *     }
+ *     
+ * 마커 애너테이션
+ *   - 요소가 하나도 정의되지 않는 애너테이션
+ *     - 예시로 @Override, @Deprecated
+ *     
+ * 애너테이션 요소의 규칙
+ *   - 애너테이션의 요소를 선언할 때 아래의 규칙을 반드시 지켜야한다.
+ *     - 요소의 타입은 기본형, String, enum, 애너테이션, Class(설계도)만 허용된다.
+ *     - 괄호() 안에 매개변수를 선언할 수 없다.
+ *     - 예외를 선언할 수 없다.
+ *     - 요소를 타입 매개변수로 정의 할 수 없다.
+ *     
+ *   - 아래의 코드에서 잘못된 부분이 무엇인지 찾으시오.
+ *     @interface Annotest{
+ *         int id = 100;
+ *         String major(int i, int j); // 매개변수 선언 불가능
+ *         String minor() throws Exception; // 예외 선언 불가능
+ *         ArrayList<T> list(); // 타입 매개변수 정의할 수 없다.
  *     }
  */
