@@ -1,6 +1,6 @@
 import javax.swing.JOptionPane;
 
-public class ThreadTest4 {
+public class ThreadSleepInterrupt {
 
 	public static void main(String[] args) {
 		// ¿¹Á¦ 1
